@@ -352,6 +352,17 @@ class FileManager
      */
     public function url($disk, $path)
     {
+        if($disk == 'ftp')
+        {
+            return [
+                'result' => [
+                    'status'  => 'success',
+                    'message' => null,
+                ],
+                'url'    => config('filesystems.disks')['ftp']['url'],
+            ];
+        }
+        
         return [
             'result' => [
                 'status'  => 'success',
