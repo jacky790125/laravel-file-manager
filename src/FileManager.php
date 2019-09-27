@@ -61,7 +61,8 @@ class FileManager
         foreach ($this->configRepository->getDiskList() as $disk) {
             if (array_key_exists($disk, config('filesystems.disks'))) {
                 $config['disks'][$disk] = array_only(
-                    config('filesystems.disks')[$disk], ['driver']
+                    config('filesystems.disks')[$disk],
+                    ['driver']
                 );
             }
         }
@@ -243,7 +244,6 @@ class FileManager
     {
         // compare disk names
         if ($disk !== $clipboard['disk']) {
-
             if (!$this->checkDisk($clipboard['disk'])) {
                 return $this->notFoundMessage();
             }
@@ -352,14 +352,14 @@ class FileManager
      */
     public function url($disk, $path)
     {
-        if($disk == 'ftp')
-        {
+        if ($disk == 'ftp') {
+            $ftp = config('filesystems.disks')['ftp'];
             return [
                 'result' => [
                     'status'  => 'success',
                     'message' => null,
                 ],
-                'url'    => config('filesystems.disks')['ftp']['url'],
+                'url'    => $ftp['url'].'/'.$ftp['root'].'/'.$path,
             ];
         }
         
